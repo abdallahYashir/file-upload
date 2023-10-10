@@ -33,53 +33,27 @@
           Uploaded At
         </th>
         <th scope="col" class="px-6 py-3">
-          Price
+          Size
         </th>
       </tr>
       </thead>
       <tbody>
-      <tr class="bg-secondary border-b text-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-50">
+      <tr
+        class="bg-secondary border-b text-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-50"
+        *ngFor="let file of files">
         <th scope="row" class="px-6 py-4 font-medium text-gray-200 whitespace-nowrap dark:text-white">
-          Apple MacBook Pro 17"
+          {{ file.name }}
         </th>
         <td class="px-6 py-4">
-          Silver
+          {{ file.checksum }}
         </td>
         <td class="px-6 py-4">
-          Laptop
+          {{ file.created_date | date: 'dd/MM/yyyy' }}
         </td>
         <td class="px-6 py-4">
-          $2999
+          {{ file.size }}
         </td>
       </tr>
-<!--      <tr class="bg-secondary border-b text-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-50">-->
-<!--        <th scope="row" class="px-6 py-4 font-medium text-gray-200 whitespace-nowrap dark:text-white">-->
-<!--          Apple MacBook Pro 17"-->
-<!--        </th>-->
-<!--        <td class="px-6 py-4">-->
-<!--          Silver-->
-<!--        </td>-->
-<!--        <td class="px-6 py-4">-->
-<!--          Laptop-->
-<!--        </td>-->
-<!--        <td class="px-6 py-4">-->
-<!--          $2999-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--      <tr class="bg-secondary border-b text-gray-100 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-600 dark:hover:bg-gray-50">-->
-<!--        <th scope="row" class="px-6 py-4 font-medium text-gray-200 whitespace-nowrap dark:text-white">-->
-<!--          Apple MacBook Pro 17"-->
-<!--        </th>-->
-<!--        <td class="px-6 py-4">-->
-<!--          Silver-->
-<!--        </td>-->
-<!--        <td class="px-6 py-4">-->
-<!--          Laptop-->
-<!--        </td>-->
-<!--        <td class="px-6 py-4">-->
-<!--          $2999-->
-<!--        </td>-->
-<!--      </tr>-->
       </tbody>
     </table>
   </div>
