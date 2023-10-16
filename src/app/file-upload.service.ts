@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {IFileData} from "./file-data.interface";
 
@@ -8,33 +9,15 @@ import {IFileData} from "./file-data.interface";
 })
 export class FileUploadService {
 
-  constructor() { }
+  private apiUrl = 'http://localhost:3000/api/documents';
+
+  constructor(private http: HttpClient) { }
 
   getFiles(): Observable<IFileData[]> {
-    const files: IFileData[] = [
-      {
-        name: 'file1',
-        checksum: '1234567890',
-        size: 123456,
-        created_date: new Date(),
-        modified_date: new Date()
-      },
-      {
-        name: 'file2',
-        checksum: '1234567890',
-        size: 123456,
-        created_date: new Date(),
-        modified_date: new Date()
-      },
-      {
-        name: 'file3',
-        checksum: '1234567890',
-        size: 123456,
-        created_date: new Date(),
-        modified_date: new Date()
-      }
-    ];
+    return this.http.get<IFileData[]>(this.apiUrl);
+  }
 
-    return of(files); // Convert the array to an observable using the `of` operator
+  uploadFile(): void {
+
   }
 }
