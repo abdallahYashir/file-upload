@@ -3,7 +3,6 @@ import { OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
 import {IFileData} from "./file-data.interface";
 import {FileUploadService} from "./file-upload.service";
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +12,7 @@ import { NgForm } from '@angular/forms';
 export class AppComponent implements OnInit, AfterViewInit{
   title = 'file-upload';
   files: IFileData[] = [];
+  infoAlert: string = '';
   constructor(private fileUploadService:FileUploadService) {
   }
   ngOnInit(): void {
@@ -23,16 +23,23 @@ export class AppComponent implements OnInit, AfterViewInit{
     this.fileUploadService.getFiles().subscribe(files => this.files = files);
   }
 
-  uploadFile(form: NgForm): void {
+  uploadFile(event: any): void {
     const formData = new FormData();
-    formData.append('file', form.value.file);
+    formData.append('file', event.target.files[0]);
 
     this.fileUploadService.uploadFile(formData).subscribe({
       next: response => {
-        console.log(response);
+        if (response.status === 409) {
+          this.infoAlert = `You have already uploaded this file: ${response.name} with checksum: ${response.checksum}`;
+        } else {
+          this.infoAlert = `File ${response.name} uploaded successfully`;
+          this.fileUploadService.getFiles().subscribe(files => this.files = files);
+        }
+
+        // TODO: enhancement: have the banner disappear after a few seconds
       },
       error: error => {
-        console.error(error);
+        this.infoAlert = `File ${error.name} upload failed`;
       }
     });
   }
